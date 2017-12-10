@@ -5,6 +5,8 @@
 
 <h1 th:text="${title}"></h1>
 
+<nav th:replace="fragments :: navigation"></nav>
+
 <form method="post" style="max-width: 600px;" th:object="${category}">
     <div class="form-group">
         <label th:for="name">Name</label>
