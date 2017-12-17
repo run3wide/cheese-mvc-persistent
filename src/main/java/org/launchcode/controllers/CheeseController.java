@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by LaunchCode
@@ -37,7 +39,7 @@ public class CheeseController {
         return "cheese/index";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.GET)
+    @RequestMapping(value = "add", method = GET)
     public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
@@ -45,7 +47,7 @@ public class CheeseController {
         return "cheese/add";
     }
 
-    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @RequestMapping(value = "add", method = POST)
     public String processAddCheeseForm(@ModelAttribute  @Valid Cheese newCheese, Errors errors, @RequestParam int categoryId, Model model) {
 
         if (errors.hasErrors()) {
@@ -58,14 +60,14 @@ public class CheeseController {
         return "redirect:";
     }
 
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    @RequestMapping(value = "remove", method = GET)
     public String displayRemoveCheeseForm(Model model) {
         model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("title", "Remove Cheese");
         return "cheese/remove";
     }
 
-    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    @RequestMapping(value = "remove", method = POST)
     public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
 
         for (int cheeseId : cheeseIds) {
